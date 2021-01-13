@@ -40,9 +40,6 @@ namespace PractCoreCF.BAL
                     l_User.Gender = userMaster.Gender;
                     l_User.CountryId = userMaster.CountryId;
                     l_User.StateId = userMaster.StateId;
-                    //l_User.CountryMaster = userMaster.CountryMaster;
-                    //l_User.StateMaster = userMaster.StateMaster;
-
                     dBContext.Entry(l_User).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     dBContext.SaveChanges();
                     return l_User;
@@ -211,17 +208,6 @@ namespace PractCoreCF.BAL
             try
             {
                 var l_Users = dBContext.UserMaster.ToList();
-                //foreach (var item in l_Users)
-                //{ 
-                //    try
-                //    {
-                //        item.Password = CommonFunction.Decrypt(item.Password);
-                //    }
-                //    catch (Exception ex)
-                //    {
-
-                //    }
-                //}
                 return l_Users;
             }
             catch (Exception ex)
@@ -229,7 +215,6 @@ namespace PractCoreCF.BAL
                 ex.SetLog("GetAllUsers() UserRepository() : " + ex.Message, environment);
                 throw;
             }
-            //throw new NotImplementedException();
         }
 
         public CountryMaster GetCountryById(int CountryId)
@@ -244,7 +229,6 @@ namespace PractCoreCF.BAL
                 ex.SetLog("GetCountryById() UserRepository " + ex.Message, environment);
                 throw;
             }
-            //throw new NotImplementedException();
         }
 
         public StateMaster GetStateById(int StateId)
@@ -295,7 +279,6 @@ namespace PractCoreCF.BAL
                 ex.SetLog("GetUserById() UserRepository() : " + ex.Message, environment);
                 throw;
             }
-            //throw new NotImplementedException();
         }
 
         public void Dispose()

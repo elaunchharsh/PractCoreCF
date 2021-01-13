@@ -178,7 +178,6 @@ namespace PractCoreCF.Mapper
         #region DB Class to ModelView Mappers
         public static UserMasterView MapSingleUserToUserMasterView(UserMaster userMaster)
         {
-            //throw new NotImplementedException();
             try
             {
                 if (userMaster != null)
@@ -355,7 +354,6 @@ namespace PractCoreCF.Mapper
             {
                 return new List<StateMasterView>();
             }
-            //throw new NotImplementedException();
         }
         #endregion
 

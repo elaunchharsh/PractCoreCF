@@ -292,7 +292,7 @@ namespace PractCoreCF.Controllers
         {
             if (IsAuthenticated())
             {
-                var l_UserData = _userRepository.GetAllUsers();
+                 var l_UserData = _userRepository.GetAllUsers();
                 return View(Mapper.UserMapper.MapMultipleUserToUserMasterView(l_UserData));
             }
             return RedirectToAction("Login");
