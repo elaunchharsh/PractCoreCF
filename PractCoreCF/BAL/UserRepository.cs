@@ -77,67 +77,119 @@ namespace PractCoreCF.BAL
             }
         }
 
+        /// <summary>
+        /// Without transaction management
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        //public bool DeleteUser(int UserId)
+        //{
+        //    try
+        //    {
+        //        var l_user = dBContext.UserMaster.Where(x => x.UserId == UserId).FirstOrDefault();
+        //        if (l_user != null)
+        //        {
+        //            //Get all images uploaded by user
+        //            var l_UserImages = dBContext.UserImages.Where(x => x.UserId == UserId).ToList();
+
+        //            //Delete all images if exists uploaded by user
+        //            foreach (var i_image in l_UserImages)
+        //            {
+        //                try
+        //                {
+        //                    dBContext.UserImages.Remove(i_image);
+        //                    dBContext.SaveChanges();
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    ex.SetLog("DeleteUser()==>UserImages.Remove  UserRepository() : " + ex.Message, environment);
+        //                    continue;
+        //                }
+        //            }
+
+        //            //get token of user
+        //            var l_token = dBContext.TokenMaster.Where(x => x.UserId == UserId).FirstOrDefault();
+
+        //            //Delete token 
+        //            if (l_token != null)
+        //            {
+        //                try
+        //                {
+        //                    dBContext.TokenMaster.Remove(l_token);
+        //                    dBContext.SaveChanges();
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    ex.SetLog("DeleteUser()==> TokenMaster.Remove  UserRepository() : " + ex.Message, environment);
+        //                }
+        //            }
+
+        //            try
+        //            {
+        //                dBContext.UserMaster.Remove(l_user);
+        //                dBContext.SaveChanges();
+        //                return true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                ex.SetLog("DeleteUser() UserRepository() : " + ex.Message, environment);
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //            return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ex.SetLog("DeleteUser() UserRepository()" + ex.Message, environment);
+        //        throw;
+        //    }
+        //}
+
+
+        
+        
+        ///<summary>
+        ///With transaction management
+        /// </summary>
         public bool DeleteUser(int UserId)
         {
-            try
+            using (var contextTransaction = dBContext.Database.BeginTransaction())
             {
-                var l_user = dBContext.UserMaster.Where(x => x.UserId == UserId).FirstOrDefault();
-                if (l_user != null)
+                try
                 {
-                    //Get all images uploaded by user
-                    var l_UserImages = dBContext.UserImages.Where(x => x.UserId == UserId).ToList();
-
-                    //Delete all images if exists uploaded by user
-                    foreach (var i_image in l_UserImages)
+                    var l_user = dBContext.UserMaster.Where(x => x.UserId == UserId).FirstOrDefault();
+                    if (l_user != null)
                     {
-                        try
+                        //First get all images data from database uploaded by user
+                        var l_userImages = dBContext.UserImages.Where(x => x.UserId == UserId).ToList();
+                        foreach (var i_image in l_userImages)
                         {
                             dBContext.UserImages.Remove(i_image);
                             dBContext.SaveChanges();
                         }
-                        catch (Exception ex)
-                        {
-                            ex.SetLog("DeleteUser()==>UserImages.Remove  UserRepository() : " + ex.Message, environment);
-                            continue;
-                        }
-                    }
 
-                    //get token of user
-                    var l_token = dBContext.TokenMaster.Where(x => x.UserId == UserId).FirstOrDefault();
-
-                    //Delete token 
-                    if (l_token != null)
-                    {
-                        try
+                        //Get token data of user
+                        var l_token = dBContext.TokenMaster.Where(x=>x.UserId==UserId).FirstOrDefault();
+                        if (l_token != null)
                         {
                             dBContext.TokenMaster.Remove(l_token);
                             dBContext.SaveChanges();
                         }
-                        catch (Exception ex)
-                        {
-                            ex.SetLog("DeleteUser()==> TokenMaster.Remove  UserRepository() : " + ex.Message, environment);
-                        }
-                    }
 
-                    try
-                    {
+                        //Finally deete user
+                        //dBContext.UserMaster.Where(x=>x.UserId==UserId).FirstOrDefault();
                         dBContext.UserMaster.Remove(l_user);
                         dBContext.SaveChanges();
-                        return true;
                     }
-                    catch (Exception ex)
-                    {
-                        ex.SetLog("DeleteUser() UserRepository() : " + ex.Message, environment);
-                        return false;
-                    }
+                    contextTransaction.Commit();
+                    return true;
                 }
-                else
+                catch (Exception ex)
+                {
+                    contextTransaction.Rollback();
                     return false;
-            }
-            catch (Exception ex)
-            {
-                ex.SetLog("DeleteUser() UserRepository()" + ex.Message, environment);
-                throw;
+                }
             }
         }
 

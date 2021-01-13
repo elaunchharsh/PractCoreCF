@@ -367,13 +367,12 @@ namespace PractCoreCF.Mapper
 
         public static string GenderIdToString(int gender)
         {
-            if (gender == 0)
-                return "NA";
-
             if (gender == 1)
                 return "Male";
-            else
+            else if (gender == 2)
                 return "Female";
+            else
+                return "NA";
         }
 
         public static List<Hobbies> getAllHobbies()

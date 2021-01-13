@@ -347,22 +347,29 @@ namespace PractCoreCF.Controllers
         public IActionResult Delete(int UserId)
         {
 
-            //delete user images folder to free up space
+            
             var l_UerImageFolderPath = environment.WebRootPath;
             l_UerImageFolderPath = l_UerImageFolderPath + "\\Uploads\\" + UserId.ToString();
             try
             {
-                if (System.IO.Directory.Exists(l_UerImageFolderPath))
-                {
-                    //We will put recursive true, If there is any folder inside it will also be deleted
-                    System.IO.Directory.Delete(l_UerImageFolderPath, true);
-                }
-                //Here we will delete user data after successfully deleted images folder
-
+                //Here we will delete user data
                 var l_DelResult = _userRepository.DeleteUser(UserId);
 
+
+                //If successfully deleted user from database then delete images also
                 if (l_DelResult)
-                { 
+                {
+                    //delete user images folder to free up space
+                    try
+                    {
+                        if (System.IO.Directory.Exists(l_UerImageFolderPath))
+                        {
+                            //We will put recursive true, If there is any folder inside it will also be deleted
+                            System.IO.Directory.Delete(l_UerImageFolderPath, true);
+                        }
+                    }
+                    catch (Exception ex)
+                    { }
                     return Ok("Success");
                 }
                 return StatusCode(Convert.ToInt32(HttpStatusCode.InternalServerError), "Something went wrong while deleting process....!!!!");
@@ -388,6 +395,8 @@ namespace PractCoreCF.Controllers
         }
     
         #region Methods for authentication
+   
+        //This method will generate JWToken
         private string GenerateJSONWebToken(UserMaster userInfo)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -410,6 +419,8 @@ namespace PractCoreCF.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+
+        //Authenticate user based on token which will retrieve from Cookie
         private bool IsAuthenticated()
         {
             var l_cookie = (string)Request.Cookies["AuthToken"];
