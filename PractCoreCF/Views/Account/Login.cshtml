@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<style>
+    body {
+        font-family: calibri;
+        padding: 0;
+        margin: 0;
+        margin:0;
+        padding:0;
+        background-color: #9b6eff;
+    }
+
+    .loginBox {
+        margin: 1% auto 0% auto;
+        padding: 5px 60px 20px 60px;
+        width: 40%;
+        /*height: 50%;*/
+        box-sizing: border-box;
+        background: rgba(0,0,0,.5);
+    }
+
+    h2 {
+        margin: 0;
+        padding: 0 0 20px;
+        text-align: center;
+        color: violet;
+    }
+
+    .loginBox p {
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .loginBox label {
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        color: #fff;
+    }
+
+
+    .loginBox input {
+        width: 100%;
+        height: 20px;
+        margin: 0 0 20px 0;
+    }
+
+        .loginBox input[type="text"],
+        .loginBox input[type="password"],
+        .loginBox input[type="email"],
+        .loginBox input[type="a"],
+        .loginBox input[type="checkbox"],
+        .loginBox input[type="date"] {
+            border: none;
+            border-bottom: 1px solid #fff;
+            background: transparent;
+            outline: none;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+
+    ::placeholder {
+        color: white;
+        opacity: 0.1;
+        text-align: center;
+    }
+
+    .loginBox input[type="submit"] {
+        border: 1px solid;
+        height: 40px;
+        color: violet;
+        background-color: transparent;
+    }
+
+        .loginBox input[type="submit"]:hover {
+            color: pink;
+            border: 2px solid;
+        }
+
+    form a {
+        color: violet;
+        text-decoration: none;
+    }
+
+    .field-validation-error {
+        color: red;
+    }
+</style>
+
+<form method="post" action="@Url.Action("Login","Account")">
+    <div class="container loginBox">
+
+
+        <h2>LOGIN</h2>
+        <div class="form-group">
+            <label for="Email">email <span>*</span></label>
+            <input type="email" name="Email" id="Email" placeholder="type a valid email">
+        </div>
+
+
+        <div class="form-group">
+            <label for="Password">password <span>*</span></label>
+            <input type="password" name="Password" id='Password' placeholder="type a complex password">
+        </div>
+
+
+        <div class="form-group">
+            <input type='submit' value='Login'>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+            <a style="float:right;" href="@Url.Action("UserInfo","Account")">Not yet registered? Register Now.</a>
+        </div>
+    </div>
+</form>

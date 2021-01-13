@@ -1,0 +1,64 @@
+﻿@model List<PractCoreCF.ModelView.UserImagesView>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Galary</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-family: fantasy;
+            font-size: 3em;
+            text-align: center;
+            background: #AA7E41;
+            color: #FBDBAF;
+            padding: 20px 0;
+            margin-top: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        img {
+            width: 400px;
+            height: 600px;
+            margin: 15px;
+            transition: transform 1s;
+            border: 5px solid #875D22;
+        }
+
+            img:hover {
+                transform: scale(1.1);
+            }
+
+        footer {
+            color: #5D3907;
+            text-align: right;
+            margin-top: 50px;
+            font-size: 20px;
+            margin-right: 5%;
+        }
+    </style>
+</head>
+<body>
+    <h1>My album</h1>
+    <div class="container">
+        @foreach (var item in Model)
+        {
+            <img src="@item.FileName" />
+        }
+    </div>
+</body>
+</html>

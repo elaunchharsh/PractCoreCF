@@ -1,0 +1,368 @@
+﻿@model PractCoreCF.ModelView.UserMasterView
+@{
+    ViewData["Title"] = "UserInfo";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<style>
+    body {
+        font-family: calibri;
+        padding: 0;
+        margin: 0;
+        margin: 0;
+        padding: 0;
+        background-color: #9b6eff;
+    }
+
+    .loginBox {
+        margin: 1% auto 0% auto;
+        padding: 5px 60px 20px 60px;
+        width: 40%;
+        /*height: 50%;*/
+        box-sizing: border-box;
+        background: rgba(0,0,0,.5);
+    }
+
+    h2 {
+        margin: 0;
+        padding: 0 0 20px;
+        text-align: center;
+        color: violet;
+    }
+
+    .loginBox p {
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .loginBox label {
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        color: #fff;
+    }
+
+
+    .loginBox input {
+        width: 100%;
+        height: 20px;
+        margin: 0 0 20px 0;
+    }
+
+        .loginBox input[type="text"],
+        .loginBox input[type="password"],
+        .loginBox input[type="email"],
+        .loginBox input[type="checkbox"],
+        .loginBox input[type="a"],
+        .loginBox input[type="radio"],
+        .loginBox input[type="date"] {
+            border: none;
+            border-bottom: 1px solid #fff;
+            background: transparent;
+            outline: none;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+
+    ::placeholder {
+        color: white;
+        opacity: 0.1;
+        text-align: center;
+    }
+
+    .loginBox input[type="submit"] {
+        border: 1px solid;
+        height: 40px;
+        color: violet;
+        background-color: transparent;
+    }
+
+    .loginBox input[type="button"] {
+        border: 1px solid;
+        height: 40px;
+        color: violet;
+        background-color: transparent;
+    }
+
+        .loginBox input[type="button"]:hover {
+            color: pink;
+            border: 2px solid;
+        }
+
+    .loginBox input[type="submit"]:hover {
+        color: pink;
+        border: 2px solid;
+    }
+
+    form a {
+        color: violet;
+        text-decoration: none;
+    }
+
+    .field-validation-error {
+        color: red;
+    }
+
+    input[type="radio"] {
+        width: 20px;
+    }
+</style>
+
+<form method="post" id="frm_UserInfo" action="/account/UserInfo" enctype="multipart/form-data">
+    <div class="container loginBox">
+
+        <div class="form-group">
+            <label for="FirstName">first name <span>*</span></label>
+            <input type='text' name=FirstName id="FirstName" placeholder="type your first name" value="@Model.FirstName">
+
+
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="form-group">
+            <label for="LastName">last name <span>*</span></label>
+            <input type='text' name="LastName" id="LastName" placeholder="type your last name" value="@Model.LastName">
+            @Html.ValidationMessageFor(model => model.LastName)
+
+        </div>
+
+        <div class="form-group">
+            <label for="Email">email <span>*</span></label>
+            <input type="email" name="Email" id="Email" placeholder="type a valid email" value="@Model.Email">
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="form-group">
+            <label for="Password">password <span>*</span></label>
+            <input type="password" name="Password" id='Password' placeholder="type a complex password" value="@Model.Password">
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="form-group">
+            <label for="confirmpassword">confirm password <span>*</span></label>
+            <input type="password" name="confirmpassword" id="confirmpassword" value="@Model.Password" />
+        </div>
+
+        <div class="form-group">
+            <label for="Gender">Gender<span>*</span></label>
+            @Html.RadioButtonFor(model => model.Gender, "1", Model.Gender == '1' ? new { @Checked = "checked" } : null) <label>Male</label>
+            @Html.RadioButtonFor(model => model.Gender, "2", Model.Gender == '2' ? new { @Checked = "checked" } : null)<label>Female</label>
+            @Html.ValidationMessageFor(model => model.Gender)
+        </div>
+
+        <div class="form-group">
+            <label for="ContactNumber">ContactNumber <span>*</span></label>
+            <input type="text" value="@Model.ContactNumber" id="ContactNumber" name="ContactNumber" />
+            @Html.ValidationMessageFor(model => model.ContactNumber)
+        </div>
+
+        <div class="form-group">
+            <label>Hobbies <span>*</span></label>
+
+            <div style="display: flex;">
+                @*<input type="checkbox" name="Hobbies" value="1"><label style="margin-left: -40%;">Coding</label>*@
+
+                <input type="checkbox" name="Hobbies" value="1" checked=@Model.Hobbies?.Contains("1")><label style="margin-left: -40%;">Coding</label>
+            </div>
+
+            <div style="display:flex;">
+                @*<input type="checkbox" name="Hobbies" value="2"><label style="margin-left: -40%;">Reading</label>*@
+
+                <input type="checkbox" name="Hobbies" value="2" checked=@Model.Hobbies?.Contains("2")><label style="margin-left: -40%;">Reading</label>
+            </div>
+
+            <div style="display:flex;">
+                @*<input type="checkbox" name="Hobbies" value="3"><label style="margin-left: -40%;">Travelling</label>*@
+
+                <input type="checkbox" name="Hobbies" value="3" checked=@Model.Hobbies?.Contains("3")><label style="margin-left: -40%;">Travelling</label>
+            </div>
+
+            @Html.ValidationMessageFor(model => model.Hobbies)
+
+
+        </div>
+
+        <div class="form-group">
+            <label>Country</label>
+            <select id="CountryId" name="CountryId">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>State</label>
+            <select id="StateId" name="StateId">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="Address">address <span>*</span></label>
+            <input type="text" name="Address" id="Address" placeholder="your Address here please..." value="@Model.Address">
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div class="form-group">
+            <label for="PostCode">PostCode</label>
+            <input type="text" name="PostCode" id="PostCode" placeholder="Post code" value="@Model.PostCode" />
+            @Html.ValidationMessageFor(model => model.PostCode)
+        </div>
+
+        <div class="form-group">
+            <label>Upload files</label>
+            <input type="file" name="file" id="userfiles" accept="image/*" multiple />
+            <span style="display:none">Please select atleast 1 file to get next steps</span>
+        </div>
+
+        <div class="form-group">
+            <input type='button' onclick="SaveInfo()" value='Save'>
+            <input type='button' value='Back' onclick="window.history.back();">
+        </div>
+    </div>
+</form>
+
+<script>
+    @{var l_count= Model.UserImages?.Count>0?true:false;}
+    var isFileAdded = '@l_count' == 'True' ? true : false;
+    $(document).ready(function () {
+        //var l_length = window.location.pathname.split('/').length;
+        //if (l_length === 4) {
+        //    var l_host = window.location.protocol + "//" + window.location.host + "/Account/UserInfo"
+        //    window.history.replaceState(null, "Users", l_host);
+        //}
+
+        //var l_host = window.location.protocol + "//" + window.location.host + "/Account/UserInfo"
+        //window.history.replaceState(null, "Users", l_host);
+
+        $('#userfiles').change(function () {
+            var files = $(this)[0].files;
+            if (files.length > 0) {
+                isFileAdded= true;
+            }
+        });
+       
+    });
+    //Load country list
+    $.get("https://localhost:44369/api/Data/GetCountries", function (data, status) {
+        debugger
+       @{var l_ctrId=Model.CountryMaster != null ? Model.CountryMaster.CountryId : 0;}
+        var l_userCountry =@l_ctrId
+
+           var l_htmlCountry= '';
+        $.each(data, function (key, value) {
+               var l_ctrId = value.countryId;
+            var l_ctrName = value.countryName;
+            if (l_ctrId === l_userCountry) {
+                l_htmlCountry += '<option value="' + l_ctrId + '" selected="selected">' + l_ctrName + '</option>';
+            }
+            else {
+                l_htmlCountry += '<option value="' + l_ctrId + '">' + l_ctrName+'</option>';
+            }
+
+           });
+        $("#CountryId").html(l_htmlCountry);
+
+        if (l_userCountry > 0) {
+            //l_ctrId
+            $.get("https://localhost:44369/api/Data/GetStatesByCountryId/" + l_userCountry, function (data, status) {
+                debugger
+                //drpState
+
+                 @{var l_stateId=Model.StateMaster != null ? Model.StateMaster.StateId : 0;}
+                var l_userState =@l_stateId
+
+           var l_htmlState = '';
+
+                $.each(data, function (key, value) {
+                    var l_stateId = value.stateId;
+                    var l_stateName = value.stateName;
+                    if (l_stateId === l_userState) {
+                        l_htmlState += '<option value="' + l_stateId + '" selected="selected">' + l_stateName + '</option>';
+                    }
+                    else {
+                        l_htmlState += '<option value="' + l_stateId + '">' + l_stateName + '</option>';
+                    }
+
+                });
+                $("#StateId").html(l_htmlState);
+            });
+        }
+        else {
+            var l_StateId = $('#StateId').val();
+
+            if (l_StateId == undefined || l_StateId == null) {
+                var l_ctrId = $('#CountryId').val();
+                debugger
+                $.get("https://localhost:44369/api/Data/GetStatesByCountryId/" + l_ctrId, function (data, status) {
+                    debugger
+                    //drpState
+                    var l_htmlInitialStates = '';
+
+                    $.each(data, function (key, value) {
+                        var l_stateId = value.stateId;
+                        var l_stateName = value.stateName;
+                        l_htmlInitialStates += '<option value="' + l_stateId + '">' + l_stateName + '</option>';
+
+                    });
+                    $("#StateId").html(l_htmlInitialStates);
+                });
+            }
+        }
+    });
+
+    //On change country, load state list
+
+    $("#CountryId").change(function () {
+        var l_ctrId = $(this).val();
+        debugger
+        $.get("https://localhost:44369/api/Data/GetStatesByCountryId/" + l_ctrId, function (data, status) {
+                debugger
+                //drpState
+
+                 @{var l_stId=Model.StateMaster != null ? Model.StateMaster.StateId : 0;}
+        var l_userState =@l_stId
+
+           var l_htmlSt = '';
+
+                $.each(data, function (key, value) {
+                    var l_stateId = value.stateId;
+                    var l_stateName = value.stateName;
+                    if (l_stateId === l_userState) {
+                        l_htmlSt += '<option value="' + l_stateId + '" selected="selected">' + l_stateName + '</option>';
+                    }
+                    else {
+                        l_htmlSt += '<option value="' + l_stateId + '">' + l_stateName + '</option>';
+                    }
+
+                });
+            $("#StateId").html(l_htmlSt);
+            });
+    });
+
+    function SaveInfo() {
+        var l_Pwd = $('#Password').val();
+        var l_PwdCnf = $('#confirmpassword').val();
+
+        if (l_Pwd.length < 8) {
+            alert('Password must be 8 charater long');
+            return;
+        }
+
+        if (l_Pwd !== l_PwdCnf) {
+            alert('Password mismatched');
+            return;
+        }
+
+        $("#frm_UserInfo").submit();
+    }
+</script>
